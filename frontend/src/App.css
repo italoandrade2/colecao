@@ -1,0 +1,41 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #eef1f5;
+}
+
+.pagina {
+  max-width: 480px;
+  margin: 40px auto;
+  padding: 24px;
+  background: white;
+  border-radius: 12px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+button {
+  padding: 10px;
+  font-size: 16px;
+  color: white;
+  background: #2f6690;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+li {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
