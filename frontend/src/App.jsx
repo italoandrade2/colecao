@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 
+import Formulario from './components/Formulario';
+import Lista from './components/Lista';
+
 const API = 'http://127.0.0.1:8000/api/series/';
 
 function App() {
@@ -38,50 +41,23 @@ function App() {
 
   return (
     <div className='pagina'>
-      <h1>Cadastro de séries</h1>
+      <h1>Minha Coleção</h1>
 
-      <form onSubmit={cadastrar}>
-        <input
-          placeholder='Título'
-          value={titulo}
-          onChange={(e) => setTitulo(e.target.value)}
-          required
-        />
-        <input
-          placeholder='Plataforma'
-          value={plataforma}
-          onChange={(e) => setPlataforma(e.target.value)}
-          required
-        />
-        <input
-          placeholder='Ano'
-          type='number'
-          step='1'
-          min='1900'
-          max='2026'
-          value={ano}
-          onChange={(e) => setAno(e.target.value)}
-        />
-        <input
-          placeholder='Avaliação'
-          type='number'
-          step='0.1'
-          min='0'
-          max='10'
-          value={avaliacao}
-          onChange={(e) => setAvaliacao(e.target.value)}
-        />
-        <button type='submit'>Cadastrar</button>
-      </form>
+      <Formulario
+        titulo={titulo}
+        setTitulo={setTitulo}
+        plataforma={plataforma}
+        setPlataforma={setPlataforma}
+        ano={ano}
+        setAno={setAno}
+        avaliacao={avaliacao}
+        setAvaliacao={setAvaliacao}
+        cadastrar={cadastrar}
+      />
 
-      <h2>Séries cadastradas</h2>
-      <ul>
-        {series.map((serie) => (
-          <li key={serie.id}>
-            {serie.titulo} · {serie.plataforma} · {serie.ano} · nota {serie.avaliacao}
-          </li>
-        ))}
-      </ul>
+      <Lista
+        series={series}
+      />
     </div>
   );
 }

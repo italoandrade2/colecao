@@ -15,10 +15,10 @@ def api_series(request):
         ano = dados.get("ano")
         avaliacao = dados.get("avaliacao")
 
-        if not (0 <= avaliacao <= 10):
+        if not 0 <= avaliacao <= 10:
             return JsonResponse({"erro": "A avaliação deve estar entre 0 e 10."})
 
-        if not (1900 <= ano <= 2026):
+        if not 1900 <= ano <= 2026:
             return JsonResponse({"erro": "O ano deve estar entre 1900 e 2026."})
 
         serie = Serie.objects.create(
