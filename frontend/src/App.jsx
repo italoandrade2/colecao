@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 
+import Resumo from './components/Resumo';
 import Formulario from './components/Formulario';
 import Lista from './components/Lista';
 
@@ -12,6 +13,11 @@ function App() {
   const [plataforma, setPlataforma] = useState('');
   const [ano, setAno] = useState('');
   const [avaliacao, setAvaliacao] = useState('');
+  const [resumo, setResumo] = useState({
+    total: 0,
+    media_avaliacao: 0,
+    melhor: null
+  });
 
   function carregarSeries() {
     fetch(API)
@@ -19,8 +25,15 @@ function App() {
       .then((dados) => setSeries(dados));
   }
 
+  function carregarResumo() {
+    fetch(API + 'resumo/')
+      .then((res) => res.json())
+      .then((dados) => setResumo(dados));
+  }
+
   useEffect(() => {
     carregarSeries();
+    carregarResumo();
   }, []);
 
   function cadastrar(evento) {
@@ -42,6 +55,10 @@ function App() {
   return (
     <div className='pagina'>
       <h1>Minha Coleção</h1>
+
+      <Resumo
+        resumo={resumo}
+      />
 
       <Formulario
         titulo={titulo}

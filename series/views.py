@@ -15,6 +15,9 @@ def api_series(request):
         ano = dados.get("ano")
         avaliacao = dados.get("avaliacao")
 
+        if not titulo or not plataforma or ano is None or avaliacao is None:
+            return JsonResponse({"erro": "Preencha todos os campos."}, status=400)
+
         if not 0 <= avaliacao <= 10:
             return JsonResponse({"erro": "A avaliação deve estar entre 0 e 10."}, status=400)
 
@@ -31,3 +34,30 @@ def api_series(request):
 
     series = list(Serie.objects.values())
     return JsonResponse(series, safe=False)
+
+def api_resumo(request):
+    series = Serie.objects.all()
+
+    total = len(series)
+
+    total_avaliacao = 0
+    melhor = None
+    maior_avaliacao = -1
+
+    for serie in series:
+        total_avaliacao += serie.avaliacao
+
+        if serie.avaliacao > maior_avaliacao:
+            maior_avaliacao = serie.avaliacao
+            melhor = serie.titulo
+
+        if total > 0:
+            media = round(total_avaliacao / total, 2)
+        else:
+            media = 0.00
+
+        return JsonResponse({
+            "total": total,
+            "media_avaliacao": media,
+            "melhor": melhor
+        })
